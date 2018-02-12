@@ -1,0 +1,71 @@
+{
+  "name": "@savantly/ngx-jsoneditor",
+  "version": "1.0.0",
+  "description": "jsoneditor for an Angular application",
+  "main": "public_api.ts",
+  "homepage": "https://github.com/savantly-net/ngx-jsoneditor",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/savantly-net/ngx-jsoneditor.git"
+  },
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "build:dev": "ng build --app dev",
+    "build:lib": "npm run clean && ng-packagr",
+    "test-watch": "ng test",
+    "test": "npm run clean && npm run build:lib && karma start --single-run",
+    "lint": "ng lint",
+    "e2e": "ng e2e",
+    "clean": "rimraf .ng_build dist"
+  },
+  "keywords": [
+    "json",
+    "jsoneditor",
+    "Angular"
+  ],
+  "author": "Jeremy@Savantly.net",
+  "license": "APACHE2",
+  "peerDependencies": {
+    "@angular/common": "~5.2",
+    "@angular/core": "~5.2",
+    "@angular/forms": "~5.2",
+    "@angular/platform-browser": "~5.2",
+    "@angular/platform-browser-dynamic": "~5.2",
+    "zone.js": "^0.8.17"
+  },
+  "devDependencies": {
+    "@angular/cli": "^1.6.8",
+    "@angular/common": "~5.2",
+    "@angular/compiler": "~5.2",
+    "@angular/compiler-cli": "~5.2",
+    "@angular/core": "~5.2",
+    "@angular/forms": "~5.2",
+    "@angular/platform-browser": "~5.2",
+    "@angular/platform-browser-dynamic": "~5.2",
+    "@angular/router": "~5.2",
+    "@types/jasmine": "^2.6.0",
+    "angular-ide": "^0.9.31",
+    "codelyzer": "^4.1.0",
+    "core-js": "^2.5.1",
+    "cpr": "^2.2.0",
+    "jasmine-core": "^2.99.1",
+    "karma": "^1.7.1",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-coverage-istanbul-reporter": "^1.3.0",
+    "karma-firefox-launcher": "^1.0.1",
+    "karma-jasmine": "^1.1.0",
+    "karma-jasmine-html-reporter": "^0.2.2",
+    "karma-spec-reporter": "0.0.31",
+    "ng-packagr": "2.0.0",
+    "protractor": "^5.1.2",
+    "rimraf": "^2.6.2",
+    "rxjs": "^5.5.6",
+    "tsickle": "^0.26.0",
+    "tslint": "^5.7.0",
+    "typescript": "^2.7.1",
+    "zone.js": "^0.8.17"
+  },
+  "dependencies": {}
+}

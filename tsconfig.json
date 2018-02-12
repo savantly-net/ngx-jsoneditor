@@ -1,0 +1,29 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "outDir": "./dist/out-tsc",
+    "baseUrl": "src",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es5",
+    "typeRoots": [	
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2016",
+      "dom"
+    ],
+    "paths": {
+      "@savantly/gremlin-js": [ "./node_modules/@savantly/gremlin-js/" ],
+      "@angular/*": [ "./node_modules/@angular/*"],
+      "rxjs/*": [ "./node_modules/rxjs/*"],
+      "rxjs/operators/*": [ "./node_modules/rxjs/operators/*"]
+    }
+  },
+  "exclude": [
+    ".ng_build"
+  ]
+}
