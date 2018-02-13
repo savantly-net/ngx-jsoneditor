@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'sv-root',
@@ -7,7 +7,26 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
+  json = {
+    'array': [1, 2, 3],
+    'boolean': true,
+    'null': null,
+    'number': 123,
+    'object': {'a': 'b', 'c': 'd'},
+    'string': 'Hello World'
+  };
 
-  constructor () {}
+  options = {
+    mode: 'tree',
+    modes: ['code', 'form', 'text', 'tree', 'view'], // allowed modes
+    onError: function(err) {
+      alert(err.toString());
+    },
+    onModeChange: function(newMode, oldMode) {
+      console.log('Mode switched from', oldMode, 'to', newMode);
+    }
+  };
+
+  constructor() {}
 
 }
