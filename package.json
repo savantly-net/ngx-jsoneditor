@@ -1,6 +1,6 @@
 {
   "name": "@savantly/ngx-jsoneditor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "jsoneditor for an Angular application",
   "main": "public_api.ts",
   "homepage": "https://github.com/savantly-net/ngx-jsoneditor",
