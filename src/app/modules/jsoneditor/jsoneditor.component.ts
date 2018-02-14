@@ -1,6 +1,9 @@
-import {Component, OnInit, AfterViewInit, Input, forwardRef, Renderer2, ElementRef, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, AfterViewInit, Input, forwardRef, Renderer2, ElementRef, ViewEncapsulation, EventEmitter, Output} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import * as JSONEditor from 'jsoneditor';
+
+const noop = () => {
+};
 
 @Component({
   selector: 'sv-json-editor',
@@ -17,57 +20,85 @@ import * as JSONEditor from 'jsoneditor';
 })
 export class JsonEditorComponent implements OnInit, ControlValueAccessor {
 
-  _editor: any;
-  _onTouched: any;
-  _onChange: any;
-  _json: any;
-  _options: any = {
-      mode: 'tree',
-      modes: ['code', 'form', 'text', 'tree', 'view'], // allowed modes
+  _jsonString: string;
+
+  // Placeholders for the callbacks which are later provided
+  // by the Control Value Accessor
+  private onTouchedCallback: () => void = noop;
+  private onChangeCallback: (_: any) => void = noop;
+
+  private _editor: any;
+  private _modes: string[] = ['code', 'form', 'text', 'tree', 'view'];
+  private _mode = 'tree';
+  private _options: any;
+
+  get mode() {
+    return this._mode;
+  }
+  @Input()
+  set mode(val) {
+    this._mode = val;
+  }
+  get modes() {
+    return this._modes;
+  }
+
+  @Input()
+  set modes(val) {
+    this._modes = val;
+  }
+
+  // ngModel getter
+  get value(): string {
+    return this._jsonString;
+  };
+
+  // set ngModel value including call the onchange callback
+  @Input()
+  setValue(v: string) {
+    if (v !== this._jsonString) {
+      this._jsonString = v;
+      this.onChangeCallback(v);
+    }
+  }
+
+  // From ControlValueAccessor interface
+  writeValue(value: string) {
+    if (value !== this._editor.getText()) {
+      this._jsonString = value;
+      this._editor.setText(value);
+    }
+  }
+
+  // From ControlValueAccessor interface
+  registerOnChange(fn: any) {
+    this.onChangeCallback = fn;
+  }
+
+  // From ControlValueAccessor interface
+  registerOnTouched(fn: any) {
+    this.onTouchedCallback = fn;
+  }
+
+  ngOnInit(): void {
+    const options = {
+      mode: this.mode,
+      modes: this.modes,
       onError: function(err) {
-        alert(err.toString());
+        console.error(err.toString());
       },
-      onChange: function() {
-        console.log('change');
+      onChange: () => {
+        console.log('jsoneditor onChange');
+        this.setValue(this._editor.getText());
       },
       indentation: 4,
       escapeUnicode: true
     };
-
-  get options() {
-    return this._options;
+    const editorElement = this.element.nativeElement;
+    this._editor = new JSONEditor(editorElement, options);
   }
-
-  @Input()
-  set options(val) {
-    this._options = val;
-    // this._onChange(this._fieldControl);
-  }
-
-  @Input()
-    set ngModel(val) {
-    this._json = val;
-  }
-
-  writeValue(obj: any): void {
-    this._json = obj;
-  }
-  registerOnChange(fn: any): void {
-    this._onChange = fn;
-  }
-  registerOnTouched(fn: any): void {
-    this._onTouched = fn;
-  }
-  setDisabledState(isDisabled: boolean): void {
-    // throw new Error("Method not implemented.");
-  }
-
-
-  ngOnInit(): void {
-    const editorElement = this.element.nativeElement.children[0];
-    this._editor = new JSONEditor(editorElement, this.options);
-    this._editor.set(this._json);
-    this._editor.expandAll();
+  setDisabledState?(isDisabled: boolean): void {
+    throw new Error('Method not implemented.');
   }
 
   constructor(private element: ElementRef, _renderer: Renderer2) {}

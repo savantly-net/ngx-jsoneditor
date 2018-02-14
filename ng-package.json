@@ -3,6 +3,7 @@
   "dest": "./dist/",
   "workingDirectory": ".ng_build",
   "lib": {
+    "cssUrl": "inline",
     "entryFile": "public_api.ts",
     "externals": {
     }
